@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "env": {
+    "DATABASE_URL": "@database_url"
+  },
+  "build": {
+    "env": {
+      "DATABASE_URL": "@database_url"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/products",
+      "methods": ["GET"],
+      "dest": "/api/getProducts.js"
+    },
+    {
+      "src": "/api/products/(.*)",
+      "methods": ["GET"],
+      "dest": "/api/getProduct.js?id=$1"
+    },
+    {
+      "src": "/api/products",
+      "methods": ["POST"],
+      "dest": "/api/createProduct.js"
+    }
+  ]
+}
