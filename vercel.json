@@ -20,9 +20,14 @@
       "dest": "/api/getProduct.js?id=$1"
     },
     {
-      "src": "/api/products",
+      "src": "/api/products/unregistered",
       "methods": ["POST"],
-      "dest": "/api/createProduct.js"
+      "dest": "/api/unregisteredProduct.js"
+    },
+    {
+      "src": "/api/unregistered",
+      "methods": ["GET"],
+      "dest": "/api/getUnregistered.js"
     }
   ]
 }

@@ -4,15 +4,13 @@ const prisma = new PrismaClient()
 
 export default async (req, res) => {
   try {
-    const { title, barcode } = JSON.parse(req.body)
+    const { barcode } = JSON.parse(req.body)
 
-    const product = await prisma.product.create({
+    const product = await prisma.unregistered.create({
       data: {
-        title,
         barcode,
       },
     })
-
     res.status(200).json(product)
   } catch (e) {
     if (e instanceof PrismaClientKnownRequestError) {

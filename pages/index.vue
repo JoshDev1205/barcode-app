@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col items-center">
-    <h1 class="text-white text-2xl">Barcode App</h1>
+    <h1 class="text-white text-2xl">Barcode Detector</h1>
     <div id="camera" class="relative" />
     <div>
-      <div v-if="barcode && !product">
-        <span class="text-white font-bold text-3xl"
-          >El codigo de barras {{ barcode }} no existe.</span
-        >
-        <nuxt-link class="underline" to="/register">Registralo aquí</nuxt-link>
+      <div v-if="barcode && !product" class="flex flex-col items-center">
+        <p class="text-white text-2xl">
+          El codigo de barras <span class="font-bold">{{ barcode }}</span> no
+          existe.
+        </p>
       </div>
       <div v-else-if="!barcode && product">
         <p class="text-white font-bold text-3xl">
@@ -20,12 +20,12 @@
 
 <script>
 import Quagga from 'quagga'
-import { mapActions, mapState } from 'vuex'
-import getProduct from '../api/getProduct'
 export default {
   data() {
     return {
       initialBarcode: '',
+      barcode: '',
+      product: '',
     }
   },
   watch: {
@@ -66,17 +66,26 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['getProduct']),
     async getProductInformation() {
       try {
-        await getProduct(this.initialBarcode)
+        const response = await fetch(`api/products/${this.initialBarcode}`)
+        const data = await response.json()
+        if (data) {
+          this.product = data
+          this.barcode = ''
+          return
+        }
+        const responseUnregisted = await fetch('api/products/unregistered', {
+          method: 'POST',
+          body: JSON.stringify({ barcode: this.initialBarcode }),
+        })
+        await responseUnregisted.json()
+        this.barcode = this.initialBarcode
+        this.product = ''
       } catch (error) {
         console.log(error)
       }
     },
-  },
-  computed: {
-    ...mapState(['barcode', 'product']),
   },
 }
 </script>

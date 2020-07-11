@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -17,7 +17,6 @@ model Product {
 }
 
 model Unregistered {
-  id        Int      @default(autoincrement()) @id
-  barcode   String   @unique
-  createdAt DateTime @default(now())
+  id      Int    @default(autoincrement()) @id
+  barcode String @unique
 }

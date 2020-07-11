@@ -12,6 +12,10 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js",
     "prisma:generate": "prisma generate",
+    "prisma:seed": "npm run prisma/seed.js",
+    "prisma:studio": "prisma studio --experimental",
+    "prisma:save": "prisma migrate save --name init --experimental",
+    "prisma:up": "prisma migrate up --experimental",
     "postinstall": "prisma generate"
   },
   "lint-staged": {

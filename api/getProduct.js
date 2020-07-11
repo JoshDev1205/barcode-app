@@ -8,7 +8,7 @@ export default async (req, res) => {
 
     const product = await prisma.product.findOne({
       where: {
-        barcode: Number(id),
+        barcode: id,
       },
     })
 
