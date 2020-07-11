@@ -26,7 +26,7 @@ export default {
       products: [],
     }
   },
-  async created() {
+  async mounted() {
     const response = await fetch('api/unregistered')
     const data = await response.json()
     this.products = data
